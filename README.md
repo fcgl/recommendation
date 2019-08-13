@@ -17,7 +17,7 @@ This build should work for both macOS and Linux
 1. Download docker for your operating system
 2. From project root run the following commands:
     * **Build:** `docker build -t recommendation .`
-    * **Run:** `docker run --name rec -p 80:5000 recommendation`
+    * **Run:** `docker run --name rec -p 5000:5000 recommendation`
 
 ## Health Endpoint
 
