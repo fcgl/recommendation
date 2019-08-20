@@ -8,8 +8,10 @@ Example:
  {
     “id”: 1,
     “mechant_id”: 245,
-    “category_id”: 452
-    “priceLevel”: 1
+    “category_id”: 452,
+    “priceLevel”: 1,
+    “added_on”: 12342352,
+    “last_updated”: 12342942
  }
 '''
 class Merchant_Category(object):
@@ -17,7 +19,7 @@ class Merchant_Category(object):
     COLLECTION = "merchant_categories"
 
     def __init__(self, id, merchant_id, category_id, price_level):
-        self.id = id;
+        self.id = id
         self.merchant_id = merchant_id
         self.category_id = category_id
         self.price_level = price_level
