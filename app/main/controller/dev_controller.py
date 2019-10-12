@@ -8,6 +8,10 @@ import json
 from bson.objectid import ObjectId
 
 from ..util.dto import DevEndpoint
+from ..dataModel.user import User
+from ..dataModel.product import Product
+from ..repository.UserRepository import UserRepository
+from ..repository.ProductRepository import ProductRepository
 
 api = DevEndpoint.api
 
@@ -54,7 +58,7 @@ class ProductAPI(Resource):
     @api.doc('Gets all the products in the database')
     def get(self):
         """Gets all the products in the products collection"""
-        products = DB.find_all("products")
+        products = DB.find_all(ProductRepository.COLLECTION)
         return dumps(products)
 
 
@@ -71,9 +75,46 @@ class MerchantCategoryAPI(Resource):
 class MerchantProductAPI(Resource):
     @api.doc('Gets all the merchant products in the database')
     def get(self):
-        """Gets all the products in the products collection"""
+        """Gets all the merchant products in the merchant products collection"""
         merchant_categories = DB.find_all("merchant_products")
         return dumps(merchant_categories)
+
+@api.route('/v1/user')
+class UserAPI(Resource):
+    @api.doc('Gets all the Users in the database')
+    def get(self):
+        """Gets all the users in the user collection"""
+        users = DB.find_all(UserRepository.COLLECTION)
+        return dumps(users)
+
+@api.route('/v1/populate_data')
+class DataPopulation(Resource):
+
+    @api.doc('Populate some initial data for testing purposes on Development')
+    def get(self):
+        DB.bulk_delete(ProductRepository.COLLECTION)
+        DB.bulk_delete(UserRepository.COLLECTION)
+        user1 =  User(1, 22, 'Peru', '100$', 1)
+        user2 =  User(2, 22, 'Peru', '100$', 1)
+
+        product1 = Product(1, 'coca cola 12oz', 12.30, ['beverage', 'soda'], [1], 2.6)
+        product2 = Product(2, 'doritoz family size', 2.30, ['snack', 'chip'], [1], 4.6)
+        product3 = Product(3, 'greek yogurt', 5.30, ['snack', 'dairy'], [1], 5.6)
+
+        user1 = UserRepository.insert(user1)
+        user2 = UserRepository.insert(user2)
+        product1 = ProductRepository.insert(product1)
+        product2 = ProductRepository.insert(product2)
+        product3 = ProductRepository.insert(product3)
+
+        created_users = [user1, user2]
+        created_products = [product1, product2, product3]
+        return {
+                   'message': 'Successfully populated User and Product tables',
+                    'created_users': created_users,
+                    'created_products': created_products
+               }, 200
+
 
 
 class Encoder(json.JSONEncoder):
