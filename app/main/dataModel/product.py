@@ -15,6 +15,8 @@ Example:
      ],
     “added_on”: 12342352
     “last_updated”: 12342942,
+    "popularity_index": 4.32,
+    "cities": [1,2,6]
 }
 
 '''
@@ -22,17 +24,15 @@ class Product(object):
 
     COLLECTION = "products"
 
-    def __init__(self, id, name, retail_price, categories):
+    def __init__(self, id, name, retail_price, categories, cities = [], popularity_index = 0):
         self.id = id
         self.name = name
         self.retail_price = retail_price
         self.categories = categories
         self.added_on = time.time()
         self.last_updated = self.added_on
-
-    def insert(self):
-        if not DB.find_one(Product.COLLECTION, {"_id": self.id}):
-            DB.insert(collection=Product.COLLECTION, data=self.json())
+        self.popularity_index = popularity_index
+        self.cities = cities
 
     def json(self):
         return {
@@ -41,5 +41,7 @@ class Product(object):
             'retail_price': self.retail_price,
             'categories': self.categories,
             'added_on': self.added_on,
-            'last_updated': self.last_updated
+            'last_updated': self.last_updated,
+            "popularity_index": self.popularity_index,
+            "cities": self.cities
         }
