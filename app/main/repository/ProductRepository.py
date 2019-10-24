@@ -34,3 +34,7 @@ class ProductRepository(object):
             sort=[('popularity_index', pymongo.DESCENDING)]
         )
 
+    @staticmethod
+    def find_one(query):
+        return DB.find_one(ProductRepository.COLLECTION, query)
+
