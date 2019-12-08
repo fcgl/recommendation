@@ -55,8 +55,12 @@ class UserRecommendationService(object):
         if user_recommendation is None:
             return {'message': 'no recommendations found', 'product_ids': [], 'success': True}
         product_ids = user_recommendation['product_ids']
-
-        return {'success': True, 'message': 'Found recommended product ids', 'product_ids': product_ids}
+        products = []
+        for product_id in product_ids:
+            current_product = ProductRepository.find_one({'_id': product_id['_id']})
+            if current_product:
+                products.append(current_product)
+        return {'success': True, 'message': 'Found recommended product ids', 'products': products}
 
 
     '''
