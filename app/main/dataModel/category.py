@@ -18,15 +18,17 @@ class Category(object):
     COLLECTION = "categories"
 
     def __init__(self, id, name):
-        self.id = id;
+        self.id = id
         self.name = name
         self.added_on = time.time()
         self.last_updated = self.added_on
 
+    # adds the categorical info if not found in the database.
     def insert(self):
         if not DB.find_one(Category.COLLECTION, {"_id": self.id}):
             DB.insert(collection=Category.COLLECTION, data=self.json())
 
+    # return the info in json format.
     def json(self):
         return {
             '_id': self.id,

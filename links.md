@@ -1,0 +1,7 @@
+- https://www.mikulskibartosz.name/a-comprehensive-guide-to-putting-a-machine-learning-model-in-production/
+- https://auth0.com/blog/developing-restful-apis-with-python-and-flask/
+- https://www.kdnuggets.com/2019/10/easily-deploy-machine-learning-models-using-flask.html
+- https://blog.hyperiondev.com/index.php/2018/02/01/deploy-machine-learning-model-flask-api/
+- https://scotch.io/tutorials/build-a-restful-api-with-flask-the-tdd-way
+- https://www.retentionscience.com/blog/scalingrecommendations/
+- https://getstream.io/blog/recommendations-activity-streams-vowpal-wabbit/
