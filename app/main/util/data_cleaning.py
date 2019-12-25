@@ -5,7 +5,7 @@ from ..dataModel.merchant_product import Merchant_Product
 from ..dataModel.merchant import Merchant
 from ..dataModel.product import Product
 from ..dataModel.user_purchase import UserPurchase
-from ..datkaModel.user import User
+from ..dataModel.user import User
 
 from ..database import DB
 

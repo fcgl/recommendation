@@ -53,7 +53,7 @@ class User(object):
 
     # to get the id of the user ?. TO do find the use of this function. nOT SURE WHAT TO RETURN HERE.
     def get_id(self):
-        self.id
+        return self.id
 
     def set_id(self, id):
         self.id = id
