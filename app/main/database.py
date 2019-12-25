@@ -9,7 +9,8 @@ class DB(object):
     DB_NAME = "recommendation"
 
     @staticmethod
-    def init():
+    def __init__():
+        # connecting to the database.
         client = pymongo.MongoClient(DB.URI)
         DB.DATABASE = client[DB.DB_NAME]
 

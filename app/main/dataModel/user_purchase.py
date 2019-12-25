@@ -35,9 +35,9 @@ class UserPurchase(object):
     def json(self):
         return {
             '_id': self.id,
-            'user_id': self.name,
-            'product_id': self.retail_price,
-            'purchased_count': self.categories,
+            'user_id': self.user_id,
+            'product_id': self.product_id,
+            'purchased_count': self.purchased_count,
             'added_on': self.added_on,
             'last_updated': self.last_updated
         }

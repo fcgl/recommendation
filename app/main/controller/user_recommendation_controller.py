@@ -19,7 +19,7 @@ class UserRecommendationController(Resource):
 
 @api.route('/v1')
 class Recommendation(Resource):
-
+    
     @api.doc('Gets a specific user\'s product recommendations')
     def get(self):
         user_id = int(request.args.get('userId', None))

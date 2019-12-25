@@ -4,11 +4,14 @@ from ..repository.ProductRepository import ProductRepository
 from ..repository.UserRecommendationRepository import UserRecommendationRepository
 from ..repository.UserRepository import UserRepository
 
+from ..util.data_cleaning import DataProcessing
+import pandas as pd
+
 class UserRecommendationService(object):
 
-
-    def __init__(self, recommendation_active = False):
+    def __init__(self, recommendation_active = False , process='purchase_count'):
         self.recommendation_active = recommendation_active
+        self.process = process
 
 
     def update_user_recommendations(self):
@@ -18,11 +21,12 @@ class UserRecommendationService(object):
             self._generic_process()
 
 
+
     '''
     Queries for the most popular items in a given city. Inserts one entry to the
     user_recommendation database collection per city. Updates every User's recommendation_id
     to that of the inserted user_recommendation entry
-    
+    This is the generic recommnedation which is based on the popilar items in the given city.   
     '''
     def _generic_process(self):
         #TODO: Change logic so that the entire process is not commited unless everything is ran correctly (in case of errors)
@@ -33,13 +37,23 @@ class UserRecommendationService(object):
             # list_of_city_users = self._get_all_city_users(city)
             self._set_user_recommendation(city)
 
+
     '''
-    Calls a function that begins the recommendation algorithm process
+    Calls a function that begins the recommendation algorithm process 
     Should insert new recommendations in the user_recommendation database collection
     and update a User's recommendation_id.
     '''
     def _machine_learning_process(self):
-        return None
+        purchase_count_explicit, purchase_count_implicit,users_explicit, users_implicit = DataProcessing.start()
+
+        if self.process =='purchase_count':
+            purchase_count = pd.Dataframe(purchase_count_explicit.groupby(['product_id'])['purchased_count'].sum())
+            top10 = purchase_count.sort_values('purchase_count' , ascending=False).head(10)
+        
+        UserRecommendationRepository.bulk_delete()
+        UserRecommendationRepository.insert(top10)
+                    
+        return UserRecommendationRepository        
 
 
     '''

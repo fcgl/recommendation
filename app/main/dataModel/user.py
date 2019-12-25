@@ -45,9 +45,15 @@ class User(object):
             'recommendation_id': self.recommendation_id,
             'city_id': self.city_id
         }
+    
+    # I dont see why there is no need for insert of the user data? or was it missed ?
+    def insert(self):
+        if not DB.find_one(User.COLLECTION, {"_id": self.id}):
+            DB.insert(collection=User.COLLECTION, data=self.json())
 
+    # to get the id of the user ?. TO do find the use of this function. nOT SURE WHAT TO RETURN HERE.
     def get_id(self):
-        self.getId()
+        return self.id
 
     def set_id(self, id):
         self.id = id

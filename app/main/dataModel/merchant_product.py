@@ -21,7 +21,7 @@ class Merchant_Product(object):
     COLLECTION = "merchant_products"
 
     def __init__(self, id, merchant_id, product_id, price, currency, discounted_price):
-        self.id = id;
+        self.id = id
         self.merchant_id = merchant_id
         self.product_id = product_id
         self.price = price
